@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: MUNSUR-KHAN
- * Date: 5/13/2023
- * Time: 11:40 PM
- */
+
 
 class User
 {
@@ -31,6 +26,28 @@ class User
         }else{
             echo "Data Not Saved";
         }
+    }
+
+    public function select(){
+        return mysqli_query($this->link, "SELECT * FROM `users`");
+    }
+
+    public function delete($id){
+        mysqli_query($this->link, "DELETE FROM `users` WHERE `id`= '$id'");
+        header('Location: index.php');
+    }
+
+    public function updateUser($id){
+        return mysqli_query($this->link, "SELECT * FROM `users` WHERE `id`='$id'");
+    }
+
+    public function updateUserSave($data){
+        $id = $data['id'];
+        $name = $data['name'];
+        $email = $data['email'];
+        mysqli_query($this->link, "UPDATE `users` SET `name`='$name',`email`='$email' WHERE `id` = '$id'");
+        header('Location: index.php');
+
     }
 
 }

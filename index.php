@@ -9,6 +9,8 @@ if (isset($_POST['submit'])){
     $user->save_user($_POST);
 }
 
+$allUser = $user->select();
+
 ?>
 
 
@@ -29,6 +31,31 @@ if (isset($_POST['submit'])){
     <input type="password" name="password" placeholder="Password">
     <input type="submit" name="submit" value="Save">
 </form>
+
+<hr>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    <?php
+    while ($row = mysqli_fetch_assoc($allUser)){
+        ?>
+
+    <tr>
+        <td><?=ucwords($row['name']);?></td>
+        <td><?=$row['email'];?></td>
+        <td>
+            <a href="edit.php?id=<?=$row['id'];?>">Edit</a>
+            ||
+            <a href="delete.php?id=<?=$row['id'];?>">Delete</a>
+        </td>
+    </tr>
+        <?php
+    }
+    ?>
+</table>
 
 </body>
 </html>
